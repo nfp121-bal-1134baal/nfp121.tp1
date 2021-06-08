@@ -31,6 +31,22 @@ public class AuditeurCNAM {
         this.prenom = prenom;
         this.matricule = matricule;
     }
+    
+    /**
+     * Methode pour enlever les accents
+     */
+    public String enleverAccents(String a){
+        String accents = "üûùúâäàåáêëéèôöòóïîìíÿÄÅÉÖÜ";
+        String pasAccents = "uuuuaaaaaeeeeooooiiiiyaaeou";
+        
+        int t = accents.length();
+        for(int i = 0; i<1; i++){
+            a = a.replace(accents.charAt(i),pasAccents.charAt(i));
+        }
+        
+        return a;
+    }
+    
 
     /**
      * le login au Cnam : 6 premières lettres du nom suivies de la première
@@ -45,7 +61,23 @@ public class AuditeurCNAM {
      *         homonymes...
      */
     public String login() {
-        return "";// à compléter
+        String n;
+        String p;
+        
+        n= this.nom.substring(0,Math.min(this.nom.length(),6));
+        p= this.prenom.substring(0,1);
+        
+        n=n.toLowerCase();
+        p=p.toLowerCase();
+        
+        n = enleverAccents(n);
+        p = enleverAccents(p);
+        
+        n=n.replaceAll("[^a-z]","_");
+        p=p.replaceAll("[^a-z]","_");
+        
+        return n+"_"+p;
+        // return "";// à compléter
     }
 
     /**
@@ -54,7 +86,8 @@ public class AuditeurCNAM {
      * @return son nom
      */
     public String nom() {
-        return null;// à compléter
+        return this.nom;
+      //  return null;// à compléter
     }
 
     /**
@@ -63,7 +96,8 @@ public class AuditeurCNAM {
      * @return son prénom
      */
     public String prenom() {
-        return null;// à compléter
+        return this.prenom;
+       // return null;// à compléter
     }
 
     /**
@@ -72,7 +106,8 @@ public class AuditeurCNAM {
      * @return son matricule
      */
     public String matricule() {
-        return null;// à compléter
+        return this.matricule;
+       // return null;// à compléter
     }
 
     /**
